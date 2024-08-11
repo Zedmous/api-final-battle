@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import {
   customerRoute,
+  productRoute,
   roleRoute,
   userRoute,
 } from "../routes/index.route";
@@ -18,6 +19,7 @@ export class Server {
     this.pre = "/api";
     this.paths = {
       customers: this.pre + "/roles",
+      products: this.pre + "/products",
       roles: this.pre + "/roles",
       users: this.pre + "/users",
     };
@@ -35,6 +37,7 @@ export class Server {
 
   routes() {
     this.app.use(this.paths.customers, customerRoute);
+    this.app.use(this.paths.products, productRoute);
     this.app.use(this.paths.roles, roleRoute);
     this.app.use(this.paths.users, userRoute);
   }
