@@ -1,14 +1,13 @@
 import { Sequelize } from "sequelize";
 
 import {
+  CustomerModel,
+  ProductModel,
   RoleModel,
+  SaleDetailModel,
+  SaleModel,
+  TaxModel,
   UserModel,
-  SupplierModel,
-  RequirementModel,
-  LocationModel,
-  AttractionsStatusModel,
-  ConceptModel,
-  InventoryModel, ProductCategoryModel,
 } from "../models";
 
 const dbName: string | undefined = process.env.DATABASE_NAME
@@ -23,21 +22,26 @@ const db = new Sequelize(dbName, "root", dbPassword, {
   host: "localhost",
 });
 
-//CREAMOS LAS TABLAS DE LA BASE DE DATOS
-
-const UserDB = db.define("users", UserModel);
+//CREAMOS LAS TABLAS DE LA BASE DE DATOS EN ORDEN ALFABETICO
+const CustomerDB = db.define("customers", CustomerModel);
+const ProductDB = db.define("products", ProductModel);
 const RoleDB = db.define("roles", RoleModel);
-const ProductCategoryDB = db.define('product_categories',ProductCategoryModel);
-const InventoryDB = db.define('inventories',InventoryModel);
-const SupplierDB = db.define("supplier", SupplierModel);
-const RequirementDB = db.define("requirements", RequirementModel);
-const LocationDB = db.define("locations", LocationModel);
-const ConceptDB = db.define("concepts", ConceptModel);
-const AttractionsStatusDB = db.define("attractions_statuses",AttractionsStatusModel);
+const SaleDetailDB = db.define("sale_details", SaleDetailModel);
+const SaleDB = db.define("sales", SaleModel);
+const TaxDB = db.define("taxes", TaxModel);
+const UserDB = db.define("users", UserModel);
+
 // Relaciones
 RoleDB.hasMany(UserDB, { foreignKey: "role_id" });
 UserDB.belongsTo(RoleDB, { foreignKey: "role_id" });
-
+CustomerDB.hasMany(SaleDB, { foreignKey: "customer_id" });
+SaleDB.belongsTo(CustomerDB, { foreignKey: "customer_id" });
+TaxDB.hasMany(SaleDB, { foreignKey: "tax_id" });
+SaleDB.belongsTo(TaxDB, { foreignKey: "tax_id" });
+SaleDB.hasMany(SaleDetailDB, { foreignKey: "sale_id" });
+SaleDetailDB.belongsTo(SaleDB, { foreignKey: "sale_id" });
+ProductDB.hasMany(SaleDetailDB, { foreignKey: "product_id" });
+SaleDetailDB.belongsTo(SaleDetailDB, { foreignKey: "product_id" });
 
 // Sincroniza los modelos con la base de datos
 const syncModels = async () => {
@@ -50,4 +54,13 @@ const syncModels = async () => {
 syncModels();
 //export default db;
 
-export { UserDB, RoleDB, SupplierDB, LocationDB, RequirementDB,AttractionsStatusDB, ConceptDB,ProductCategoryDB, InventoryDB, db };
+export {
+  CustomerDB,
+  ProductDB,
+  RoleDB,
+  SaleDetailDB,
+  SaleDB,
+  TaxDB,
+  UserDB,
+  db,
+};
