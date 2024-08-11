@@ -12,7 +12,7 @@ const TaxModel = {
     unique: true,
   },
   percentage: {
-    type: DataTypes.DECIMAL(1, 3),
+    type: DataTypes.DECIMAL,
   },
   deletedAt: {
     type: DataTypes.DATE,

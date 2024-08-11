@@ -9,14 +9,14 @@ const SaleModel = {
   customer_id: {
     type: DataTypes.INTEGER,
   },
-  deletedAt: {
-    type: DataTypes.DATE,
-  },
   discount: {
-    type: DataTypes.DECIMAL(1, 2),
+    type: DataTypes.DECIMAL,
   },
   tax_id: {
     type: DataTypes.INTEGER,
+  },
+  deletedAt: {
+    type: DataTypes.DATE,
   },
   status: {
     type: DataTypes.BOOLEAN,

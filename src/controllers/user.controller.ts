@@ -1,52 +1,53 @@
+
 import { Request, Response } from "express";
-import { create, deleted, getAll, getOne, update, getByEmail } from '../services/user.service';
+import { createUser, deleteUser, getAllUser, getOneUser, updateUser, getByEmailUser } from '../services/user.service';
 export class UserController {
   constructor() {}
 
-  allUser = async (req: Request, res: Response) => {
-    const { status, message, data } = await getAll();
+  all = async (req: Request, res: Response) => {
+    const { status, message, data } = await getAllUser();
     return res.status(status).json({
       message,
       data,
     });
   };
 
-  oneUser = async (req: Request, res: Response) => {
+  one = async (req: Request, res: Response) => {
     const {id}=req.params
-    const { status, message, data } = await getOne(parseInt(id) as number);
+    const { status, message, data } = await getOneUser(parseInt(id) as number);
     return res.status(status).json({
       message,
       data,
     });
   };
-  createUser = async (req: Request, res: Response) => {
-    const { status, message, data } = await create(req.body);
+  create = async (req: Request, res: Response) => {
+    const { status, message, data } = await createUser(req.body);
     return res.status(status).json({
       message,
       data,
     });
   };
-  updateUser = async (req: Request, res: Response) => {
+  update = async (req: Request, res: Response) => {
     const {id}=req.params
-    const { status, message, data } = await update(parseInt(id) as number,req.body);
+    const { status, message, data } = await updateUser(parseInt(id) as number,req.body);
     return res.status(status).json({
       message,
       data,
     });
   };
 
-  deleteUser = async (req: Request, res: Response) => {
+  delete = async (req: Request, res: Response) => {
     const {id}=req.params
-    const { status, message, data } = await deleted(parseInt(id) as number,req.body);
+    const { status, message, data } = await deleteUser(parseInt(id) as number,req.body);
     return res.status(status).json({
       message,
       data,
     });
   };
   
-  loginUser = async (req: Request, res: Response) => {
+  login = async (req: Request, res: Response) => {
 
-    const { status, message, data } = await getByEmail(req.body);
+    const { status, message, data } = await getByEmailUser(req.body);
     return res.status(status).json({
       message,
       data,

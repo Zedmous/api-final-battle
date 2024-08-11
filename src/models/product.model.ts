@@ -12,7 +12,7 @@ const ProductModel = {
     unique: true,
   },
   price: {
-    type: DataTypes.DECIMAL(10, 2),
+    type: DataTypes.DECIMAL,
   },
   quantity: {
     type: DataTypes.INTEGER,

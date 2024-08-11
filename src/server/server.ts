@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import {
+  customerRoute,
   roleRoute,
   userRoute,
 } from "../routes/index.route";
@@ -16,6 +17,7 @@ export class Server {
     this.port = process.env.PORT || 3800;
     this.pre = "/api";
     this.paths = {
+      customers: this.pre + "/roles",
       roles: this.pre + "/roles",
       users: this.pre + "/users",
     };
@@ -32,6 +34,7 @@ export class Server {
   }
 
   routes() {
+    this.app.use(this.paths.customers, customerRoute);
     this.app.use(this.paths.roles, roleRoute);
     this.app.use(this.paths.users, userRoute);
   }

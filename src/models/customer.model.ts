@@ -18,7 +18,7 @@ const CustomerModel = {
     },
   },
   telephone: {
-    type: DataTypes.STRING(50),
+    type: DataTypes.STRING(20),
   },
   address: {
     type: DataTypes.STRING(50),

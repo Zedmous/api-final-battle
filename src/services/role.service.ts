@@ -1,7 +1,7 @@
 import { RoleDB } from "../config";
 import { RoleInterface } from "../interfaces";
 
-export const getAll = async () => {
+export const getAllRole = async () => {
   try {
     //consultas a la base de datos van aca
     /*const roles = await RoleDB.findAll({
@@ -20,7 +20,7 @@ export const getAll = async () => {
   } catch (error) {
     console.log(error);
     return {
-      message: `Contact the administrator: error`,
+      message: `Contacta con el administrador`,
       status: 500,
     };
   }
@@ -28,7 +28,7 @@ export const getAll = async () => {
 
 
 
-export const getOne = async (id: number) => {
+export const getOneRole = async (id: number) => {
   try {
     //consultas a la base de datos van aca
     const role = await RoleDB.findOne({ where: { id } }); // Busca el proyecto con título 'Mi Título'
@@ -52,16 +52,16 @@ export const getOne = async (id: number) => {
   } catch (error) {
     console.log(error);
     return {
-      message: `Contact the administrator: error`,
+      message: `Contacta con el administrador`,
       status: 500,
     };
   }
 };
-export const create = async (data: RoleInterface) => {
+export const createRole = async (dat: RoleInterface) => {
   try {
     //consultas a la base de datos van aca
     const role = await RoleDB.create({
-      ...data,
+      name:dat.name,
     });
 
     return {
@@ -74,18 +74,19 @@ export const create = async (data: RoleInterface) => {
   } catch (error) {
     console.log(error);
     return {
-      message: `Contact the administrator: error`,
+      message: `Contacta con el administrador`,
       status: 500,
     };
   }
 };
 
-export const update = async (id: number, data: RoleInterface) => {
+export const updateRole = async (id: number, dat: RoleInterface) => {
   try {
     //consultas a la base de datos van aca
     const role = await RoleDB.update(
       {
-        ...data,
+        name:dat.name,
+        status:true,
       },
       {
         where: {
@@ -94,23 +95,23 @@ export const update = async (id: number, data: RoleInterface) => {
         returning: true,
       }
     );
-
+    const {data}= await getOneRole(id);
     return {
       message: `Actualización del Rol exitoso`,
       status: 200,
       data: {
-        role,
+        role:data?.role,
       },
     };
   } catch (error) {
     console.log(error);
     return {
-      message: `Contact the administrator: error`,
+      message: `Contacta con el administrador`,
       status: 500,
     };
   }
 };
-export const deleted = async (id: number, data: RoleInterface) => {
+export const deleteRole = async (id: number, data: RoleInterface) => {
   try {
     //consultas a la base de datos van aca
     const role = await RoleDB.update(
@@ -136,7 +137,7 @@ export const deleted = async (id: number, data: RoleInterface) => {
   } catch (error) {
     console.log(error);
     return {
-      message: `Contact the administrator: error`,
+      message: `Contacta con el administrador`,
       status: 500,
     };
   }

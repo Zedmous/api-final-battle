@@ -20,6 +20,10 @@ const dbPassword: string | undefined = process.env.DATABASE_PASSWORD
 const db = new Sequelize(dbName, "root", dbPassword, {
   dialect: "mysql",
   host: "localhost",
+  dialectOptions: {
+    initDb: true,
+    createDatabaseIfNotExist: true,
+  },
 });
 
 //CREAMOS LAS TABLAS DE LA BASE DE DATOS EN ORDEN ALFABETICO
@@ -41,7 +45,7 @@ SaleDB.belongsTo(TaxDB, { foreignKey: "tax_id" });
 SaleDB.hasMany(SaleDetailDB, { foreignKey: "sale_id" });
 SaleDetailDB.belongsTo(SaleDB, { foreignKey: "sale_id" });
 ProductDB.hasMany(SaleDetailDB, { foreignKey: "product_id" });
-SaleDetailDB.belongsTo(SaleDetailDB, { foreignKey: "product_id" });
+SaleDetailDB.belongsTo(ProductDB, { foreignKey: "product_id" });
 
 // Sincroniza los modelos con la base de datos
 const syncModels = async () => {

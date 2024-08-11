@@ -1,10 +1,10 @@
 import { Request, Response } from "express";
-import { create, deleted, getAll, getOne, update } from "../services/role.service";
+import { createRole, deleteRole, getAllRole, getOneRole, updateRole } from "../services/role.service";
 export class RoleController {
   constructor() {}
 
   all = async (req: Request, res: Response) => {
-    const { status, message, data } = await getAll();
+    const { status, message, data } = await getAllRole();
     return res.status(status).json({
       message,
       data,
@@ -13,31 +13,31 @@ export class RoleController {
 
   one = async (req: Request, res: Response) => {
     const {id}=req.params
-    const { status, message, data } = await getOne(parseInt(id) as number);
+    const { status, message, data } = await getOneRole(parseInt(id) as number);
     return res.status(status).json({
       message,
       data,
     });
   };
-  createRole = async (req: Request, res: Response) => {
-    const { status, message, data } = await create(req.body);
+  create = async (req: Request, res: Response) => {
+    const { status, message, data } = await createRole(req.body);
     return res.status(status).json({
       message,
       data,
     });
   };
-  updateRole = async (req: Request, res: Response) => {
+  update = async (req: Request, res: Response) => {
     const {id}=req.params
-    const { status, message, data } = await update(parseInt(id) as number,req.body);
+    const { status, message, data } = await updateRole(parseInt(id) as number,req.body);
     return res.status(status).json({
       message,
       data,
     });
   };
 
-  deleteRole = async (req: Request, res: Response) => {
+  delete = async (req: Request, res: Response) => {
     const {id}=req.params
-    const { status, message, data } = await deleted(parseInt(id) as number,req.body);
+    const { status, message, data } = await deleteRole(parseInt(id) as number,req.body);
     return res.status(status).json({
       message,
       data,

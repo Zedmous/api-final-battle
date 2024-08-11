@@ -1,7 +1,7 @@
 import { UserDB } from "../config";
 import { UserInterface } from "../interfaces";
 
-export const getAll = async () => {
+export const getAllUser = async () => {
   try {
     //consultas a la base de datos van aca
     /*const users = await User.findAll({
@@ -11,7 +11,7 @@ export const getAll = async () => {
       });*/
     const users = await UserDB.findAll();
 
-    if(users.length==0){
+    if (users.length == 0) {
       return {
         message: `No hay usuarios encontrados`,
         status: 200,
@@ -36,9 +36,7 @@ export const getAll = async () => {
   }
 };
 
-
-
-export const getOne = async (id: number) => {
+export const getOneUser = async (id: number) => {
   try {
     //consultas a la base de datos van aca
     const user = await UserDB.findOne({ where: { id } }); // Busca el proyecto con título 'Mi Título'
@@ -47,8 +45,7 @@ export const getOne = async (id: number) => {
       return {
         message: `Usuario no encontrado`,
         status: 404,
-        data: {
-        },
+        data: {},
       };
     } else {
       return {
@@ -67,15 +64,14 @@ export const getOne = async (id: number) => {
     };
   }
 };
-export const create = async (data: UserInterface) => {
+export const createUser = async (data: UserInterface) => {
   try {
     //consultas a la base de datos van aca
     const user = await UserDB.create({
-      name:data.name,
-      email:data.email,
-      password:data.password,
-      role_id:data.role_id,
-      status:true,
+      name: data.name,
+      email: data.email,
+      password: data.password,
+      role_id: data.role_id,
     });
 
     return {
@@ -94,15 +90,15 @@ export const create = async (data: UserInterface) => {
   }
 };
 
-export const update = async (id: number, data: UserInterface) => {
+export const updateUser = async (id: number, dat: UserInterface) => {
   try {
     //consultas a la base de datos van aca
     const user = await UserDB.update(
       {
-        name:data.name,
-        email:data.email,
-        role_id:data.role_id,
-        status:true
+        name: dat.name,
+        email: dat.email,
+        role_id: dat.role_id,
+        status: true,
       },
       {
         where: {
@@ -111,12 +107,12 @@ export const update = async (id: number, data: UserInterface) => {
         returning: true,
       }
     );
-
+    const { data } = await getOneUser(id);
     return {
       message: `Actualización del Rol exitoso`,
       status: 200,
       data: {
-        user,
+        user:data?.user,
       },
     };
   } catch (error) {
@@ -127,7 +123,7 @@ export const update = async (id: number, data: UserInterface) => {
     };
   }
 };
-export const deleted = async (id: number, data: UserInterface) => {
+export const deleteUser = async (id: number, data: UserInterface) => {
   try {
     //consultas a la base de datos van aca
     const user = await UserDB.update(
@@ -159,16 +155,18 @@ export const deleted = async (id: number, data: UserInterface) => {
   }
 };
 
-export const getByEmail = async (data: UserInterface) => {
+export const getByEmailUser = async (data: UserInterface) => {
   try {
     //consultas a la base de datos van aca
-    const user:UserInterface|any = await UserDB.findOne({ where: { email:data.email } })
+    const user: UserInterface | any = await UserDB.findOne({
+      where: { email: data.email },
+    });
     if (!user) {
       return {
         message: `Usuario no encontrado`,
         status: 404,
         data: {
-          user
+          user,
         },
       };
     } else {
