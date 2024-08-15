@@ -4,6 +4,7 @@ import {
   customerRoute,
   productRoute,
   roleRoute,
+  taxRoute,
   userRoute,
 } from "../routes/index.route";
 
@@ -21,6 +22,7 @@ export class Server {
       customers: this.pre + "/roles",
       products: this.pre + "/products",
       roles: this.pre + "/roles",
+      taxes: this.pre + "/taxes",
       users: this.pre + "/users",
     };
 
@@ -39,6 +41,7 @@ export class Server {
     this.app.use(this.paths.customers, customerRoute);
     this.app.use(this.paths.products, productRoute);
     this.app.use(this.paths.roles, roleRoute);
+    this.app.use(this.paths.taxes, taxRoute);
     this.app.use(this.paths.users, userRoute);
   }
   async connectDB() {
