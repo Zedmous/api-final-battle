@@ -7,7 +7,7 @@ Backend para una aplicacion web sobre ventas de productos de un local o tienda.
 
 ## Integrantes de Equipo
 
-- Eduardo Nieves
+- Eduardo Nieves Email: zedmous@gmail.com
 
 ### Especificaciones técnicas / Referencias
 
