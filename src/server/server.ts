@@ -4,6 +4,7 @@ import {
   customerRoute,
   productRoute,
   roleRoute,
+  saleRoute,
   taxRoute,
   userRoute,
 } from "../routes/index.route";
@@ -19,9 +20,10 @@ export class Server {
     this.port = process.env.PORT || 3800;
     this.pre = "/api";
     this.paths = {
-      customers: this.pre + "/roles",
+      customers: this.pre + "/customers",
       products: this.pre + "/products",
       roles: this.pre + "/roles",
+      sales: this.pre + "/sales",
       taxes: this.pre + "/taxes",
       users: this.pre + "/users",
     };
@@ -41,6 +43,7 @@ export class Server {
     this.app.use(this.paths.customers, customerRoute);
     this.app.use(this.paths.products, productRoute);
     this.app.use(this.paths.roles, roleRoute);
+    this.app.use(this.paths.sales, saleRoute);
     this.app.use(this.paths.taxes, taxRoute);
     this.app.use(this.paths.users, userRoute);
   }

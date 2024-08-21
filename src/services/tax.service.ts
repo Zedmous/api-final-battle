@@ -4,18 +4,18 @@ import { TaxInterface } from "../interfaces";
 export const getAllTax = async () => {
   try {
     //consultas a la base de datos van aca
-    const taxs = await TaxDB.findAll({
+    const taxes = await TaxDB.findAll({
         where: {
           status: true,
         },
       });
 
-    if(taxs.length==0){
+    if(taxes.length==0){
       return {
         message: `No hay impuestos encontrados`,
         status: 200,
         data: {
-          taxs,
+          taxes,
         },
       };
     }
@@ -23,7 +23,7 @@ export const getAllTax = async () => {
       message: `Impuestos encontrados exitosamente`,
       status: 200,
       data: {
-        taxs,
+        taxes,
       },
     };
   } catch (error) {
@@ -44,14 +44,14 @@ export const getOneTax = async (id: number) => {
     if (tax === null) {
       console.log("No encontrado");
       return {
-        message: `Usuario no encontrado`,
+        message: `Impuesto no encontrado`,
         status: 404,
         data: {
         },
       };
     } else {
       return {
-        message: `Usuario encontrado`,
+        message: `Impuesto encontrado`,
         status: 200,
         data: {
           tax,
@@ -125,7 +125,7 @@ export const updateTax = async (id: number, dat: TaxInterface) => {
 export const deleteTax = async (id: number, data: TaxInterface) => {
   try {
     //consultas a la base de datos van aca
-    const tax = await TaxDB.update(
+    const tax:any = await TaxDB.update(
       {
         status: false,
         deletedAt: new Date(),
@@ -137,14 +137,24 @@ export const deleteTax = async (id: number, data: TaxInterface) => {
         returning: true,
       }
     );
-
-    return {
-      message: `Eliminación del Impuesto exitoso`,
-      status: 200,
-      data: {
-        tax,
-      },
-    };
+    if(tax[1]==0){
+      return {
+        message: `Error en la eliminacion`,
+        status: 500,
+        data: {
+          tax,
+        },
+      };
+    }else{
+      return {
+        message: `Eliminación del Impuesto exitoso`,
+        status: 200,
+        data: {
+          tax,
+        },
+      };
+    }
+    
   } catch (error) {
     console.log(error);
     return {

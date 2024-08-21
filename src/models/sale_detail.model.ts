@@ -16,7 +16,7 @@ const SaleDetailModel = {
     type: DataTypes.INTEGER,
   },
   price: {
-    type: DataTypes.DECIMAL,
+    type: DataTypes.DOUBLE,
   },
   deletedAt: {
     type: DataTypes.DATE,

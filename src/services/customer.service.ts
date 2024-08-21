@@ -5,12 +5,12 @@ export const getAllCustomer = async () => {
   try {
     //consultas a la base de datos van aca
     const customers = await CustomerDB.findAll({
-        where: {
-          status: true,
-        },
-      });
+      where: {
+        status: true,
+      },
+    });
 
-    if(customers.length==0){
+    if (customers.length == 0) {
       return {
         message: `No hay clientes encontrados`,
         status: 200,
@@ -35,19 +35,18 @@ export const getAllCustomer = async () => {
   }
 };
 
-
-
 export const getOneCustomer = async (id: number) => {
   try {
     //consultas a la base de datos van aca
-    let customer:CustomerInterface|any = await CustomerDB.findOne({ where: { id } }); // Busca el proyecto con título 'Mi Título'
+    let customer: CustomerInterface | any = await CustomerDB.findOne({
+      where: { id },
+    }); // Busca el proyecto con título 'Mi Título'
     if (customer === null) {
       console.log("No encontrado");
       return {
         message: `Usuario no encontrado`,
         status: 404,
-        data: {
-        },
+        data: {},
       };
     } else {
       return {
@@ -69,11 +68,12 @@ export const getOneCustomer = async (id: number) => {
 export const createCustomer = async (data: CustomerInterface) => {
   try {
     //consultas a la base de datos van aca
-    let customer:CustomerInterface|any = await CustomerDB.create({
-      name:data.name,
-      email:data.email,
-      telephone:data.telephone,
-      address:data.address
+    let customer: CustomerInterface | any = await CustomerDB.create({
+      name: data.name,
+      identification: data.identification,
+      email: data.email,
+      telephone: data.telephone,
+      address: data.address,
     });
 
     return {
@@ -94,14 +94,14 @@ export const createCustomer = async (data: CustomerInterface) => {
 
 export const updateCustomer = async (id: number, dat: CustomerInterface) => {
   try {
-    
-    let customer:CustomerInterface|any = await CustomerDB.update(
+    let customer: CustomerInterface | any = await CustomerDB.update(
       {
-        name:dat.name,
-        email:dat.email,
-        telephone:dat.telephone,
-        address:dat.address,
-        status:true
+        name: dat.name,
+        identification: dat.identification,
+        email: dat.email,
+        telephone: dat.telephone,
+        address: dat.address,
+        status: true,
       },
       {
         where: {
@@ -110,12 +110,12 @@ export const updateCustomer = async (id: number, dat: CustomerInterface) => {
         returning: true,
       }
     );
-    const {data}= await getOneCustomer(id);
+    const { data } = await getOneCustomer(id);
     return {
       message: `Actualización del Cliente exitoso`,
       status: 200,
       data: {
-        customer:data?.customer,
+        customer: data?.customer,
       },
     };
   } catch (error) {
@@ -158,16 +158,18 @@ export const deleteCustomer = async (id: number, data: CustomerInterface) => {
   }
 };
 
-export const getByEmailCustomer = async (email:string) => {
+export const getByEmailCustomer = async (email: string) => {
   try {
     //consultas a la base de datos van aca
-    const customer:CustomerInterface|any = await CustomerDB.findOne({ where: { email } })
+    const customer: CustomerInterface | any = await CustomerDB.findOne({
+      where: { email },
+    });
     if (!customer) {
       return {
         message: `Cliente no encontrado`,
         status: 404,
         data: {
-          customer
+          customer,
         },
       };
     } else {

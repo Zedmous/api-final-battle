@@ -1,5 +1,4 @@
 export interface TaxInterface{
-
     id?:number;
     name:string;
     percentage:number;

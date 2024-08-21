@@ -10,7 +10,7 @@ const SaleModel = {
     type: DataTypes.INTEGER,
   },
   discount: {
-    type: DataTypes.DECIMAL,
+    type: DataTypes.DOUBLE,
   },
   tax_id: {
     type: DataTypes.INTEGER,

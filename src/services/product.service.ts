@@ -12,7 +12,7 @@ export const getAllProduct = async () => {
 
     if (products.length == 0) {
       return {
-        message: `No hay clientes encontrados`,
+        message: `No hay productos encontrados`,
         status: 200,
         data: {
           products,
@@ -44,13 +44,13 @@ export const getOneProduct = async (id: number) => {
     if (product === null) {
       console.log("No encontrado");
       return {
-        message: `Usuario no encontrado`,
+        message: `Producto no encontrado`,
         status: 404,
         data: {},
       };
     } else {
       return {
-        message: `Usuario encontrado`,
+        message: `Producto encontrado`,
         status: 200,
         data: {
           product,

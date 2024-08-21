@@ -1,5 +1,6 @@
 export * from './customer.controller'
 export * from './product.controller'
 export * from './role.controller'
+export * from './sale.controller'
 export * from './tax.controller'
 export * from './user.controller'

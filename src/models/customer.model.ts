@@ -10,6 +10,11 @@ const CustomerModel = {
     type: DataTypes.STRING(50),
     allowNull: false
   },
+  identification:{
+    type: DataTypes.STRING(20),
+    unique: true,
+    allowNull: false
+  },
   email: {
     type: DataTypes.STRING(50),
     unique: true,
