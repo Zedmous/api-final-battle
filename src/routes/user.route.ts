@@ -5,6 +5,17 @@ import { UserValidator } from "../validators";
 const userValidator = new UserValidator();
 const router = Router();
 const userController=new UserController();
+/**
+ * @swagger
+ * /users:
+ *   get:
+ *     summary: Obtener todas los usuarios
+ *     tags:
+ *       - Users
+ *     responses:
+ *       200:
+ *         description: Lista de usuarios
+ */
 router.get("/", userController.all);//http://localhost:3800/api/users
 router.get("/:id", userController.one);//http://localhost:3800/api/users/1
 router.post("/",userValidator.validateUser,validateFields, userController.create);//http://localhost:3800/api/users

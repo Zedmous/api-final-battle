@@ -5,6 +5,17 @@ import { SaleValidator } from "../validators";
 const saleValidator = new SaleValidator();
 const router = Router();
 const saleController=new SaleController();
+/**
+ * @swagger
+ * /sales:
+ *   get:
+ *     summary: Obtener todas las ventas
+ *     tags:
+ *       - Sales
+ *     responses:
+ *       200:
+ *         description: Lista de ventas
+ */
 router.get("/", saleController.all);
 router.get("/:id", saleController.one);
 router.post("/",saleValidator.validateSale,validateFields, saleController.create);

@@ -5,6 +5,17 @@ import { CustomerValidator } from "../validators";
 const customerValidator = new CustomerValidator();
 const router = Router();
 const customerController=new CustomerController();
+/**
+ * @swagger
+ * /customers:
+ *   get:
+ *     summary: Obtener todas los clientes
+ *     tags:
+ *       - Customers
+ *     responses:
+ *       200:
+ *         description: Lista de clientes
+ */
 router.get("/", customerController.all);//http://localhost:3800/api/customers
 router.get("/:id", customerController.one);//http://localhost:3800/api/users/1
 router.post("/",customerValidator.validateCustomer,validateFields, customerController.create);//http://localhost:3800/api/customers

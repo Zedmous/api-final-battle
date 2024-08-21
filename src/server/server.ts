@@ -8,8 +8,10 @@ import {
   taxRoute,
   userRoute,
 } from "../routes/index.route";
-
 import { db } from "../config/sequelize.config";
+import { swaggerOptions } from "../config";
+import swaggerJsDoc from 'swagger-jsdoc';
+import swaggerUi from 'swagger-ui-express';
 export class Server {
   private app: any;
   private port: string | number;
@@ -31,6 +33,7 @@ export class Server {
     this.connectDB();
     this.middlewares();
     this.routes();
+    this.swaggerSetup();
   }
 
   middlewares() {
@@ -62,5 +65,17 @@ export class Server {
     this.app.listen(this.port, () => {
       console.log(`Servidor corriendo en localhost:${this.port}`);
     });
+  }
+  swaggerSetup() {
+    const swaggerDocs = swaggerJsDoc(swaggerOptions);
+    this.app.use("/swagger", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+    /*
+    app.get('/swagger.json', function (req, res) {
+      res.setHeader('Content-Type', 'application/json');
+      res.send(swaggerDocs);
+    });
+    app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+    
+    app.use('/api/v2', mainRoute);*/
   }
 }

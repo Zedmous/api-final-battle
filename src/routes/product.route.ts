@@ -5,6 +5,17 @@ import { ProductValidator } from "../validators";
 const productValidator = new ProductValidator();
 const router = Router();
 const productController=new ProductController();
+/**
+ * @swagger
+ * /products:
+ *   get:
+ *     summary: Obtener todas los productos
+ *     tags:
+ *       - Products
+ *     responses:
+ *       200:
+ *         description: Lista de productos
+ */
 router.get("/", productController.all);//http://localhost:3800/api/customers
 router.get("/:id", productController.one);//http://localhost:3800/api/users/1
 router.post("/",productValidator.validateProduct,validateFields, productController.create);//http://localhost:3800/api/customers
