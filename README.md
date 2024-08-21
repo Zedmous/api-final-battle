@@ -94,7 +94,7 @@ Backend para una aplicacion web sobre ventas de productos de un local o tienda.
 
 
 ### Documentacion de la Api y Pruebas en Swagger
-
+- local -> 
 ```
-- local -> http://localhost:3800/swagger
+http://localhost:3800/swagger
 ```
