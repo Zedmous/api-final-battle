@@ -1,11 +1,11 @@
-import { SaleDB, SaleDetailDB } from "../config";
+import { ProductDB, SaleDB, SaleDetailDB,db } from "../config";
 import { SaleInterface } from "../interfaces";
 
 export const getAllSale = async () => {
   try {
     const sales = await SaleDB.findAll();
     return {
-      message: `Ventas encontradas`,
+      message: `¡Ventas encontradas exitosamente!`,
       status: 200,
       data: {
         sales,
@@ -49,6 +49,7 @@ export const getOneSale = async (id: number) => {
   }
 };
 export const createSale = async (dat: SaleInterface) => {
+  const transaction = await db.transaction();
   try {
     //consultas a la base de datos van aca
     const sale = await SaleDB.create(
@@ -60,11 +61,20 @@ export const createSale = async (dat: SaleInterface) => {
       },
       {
         include: [{ model: SaleDetailDB }], // Incluir el modelo de detalles de venta
+        transaction, // Usar la transacción
       }
     );
-
+    let details:any=dat.sale_details;
+    // Actualizar la cantidad en la tabla products
+    for (const detail of details) {
+      await ProductDB.update(
+        { quantity: db.literal(`quantity - ${detail.quantity}`) },
+        { where: { id: detail.product_id }, transaction } // Usar la transacción
+      );
+    }
+    await transaction.commit(); // Confirmar la transacción
     return {
-      message: `Creacion de Rol exitoso`,
+      message: `¡Venta registrada exitosamente!`,
       status: 200,
       data: {
         sale,
@@ -95,7 +105,7 @@ export const updateSale = async (id: number, dat: SaleInterface) => {
     );
     const { data } = await getOneSale(id);
     return {
-      message: `Actualización del Rol exitoso`,
+      message: `¡Venta actualizada exitosamente!`,
       status: 200,
       data: {
         sale: data?.sale,
@@ -126,7 +136,7 @@ export const deleteSale = async (id: number, data: SaleInterface) => {
     );
 
     return {
-      message: `Eliminación del Rol exitoso`,
+      message: `¡Venta eliminada exitosamente!`,
       status: 200,
       data: {
         sale,
