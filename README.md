@@ -1,6 +1,6 @@
 # DATLESA 0.0.1
 
-# Repositorio Backend. Aplicacion de Ventas 2024
+# Repositorio Backend. Aplicación de Ventas 2024
 
 Backend para una aplicacion web sobre ventas de productos de un local o tienda.
 
@@ -83,26 +83,15 @@ Backend para una aplicacion web sobre ventas de productos de un local o tienda.
 
 | °   | Paquete                            | Versión         |
 | --- | ---------------------------------- | --------------- |
-| 1   | `@google-cloud/storage`            | `^5.8.5`        |
-| 2   | `bcryptjs`                         | `^2.4.3`        |
-| 3   | `cors`                             | `^2.8.5`        |
-| 4   | `dotenv`                           | `^10.0.0`       |
-| 5   | `email-templates`                  | `^8.0.7`        |
-| 6   | `express`                          | `^4.17.1`       |
-| 7   | `express-validator`                | `^6.6.0`        |
-| 8   | `fs-extra`                         | `^10.0.0`       |
-| 9   | `jsonwebtoken`                     | `^8.5.1`        |
-| 10  | `morgan`                           | `^1.10.0`       |
-| 11  | `multer`                           | `^1.4.2`        |
-| 12  | `nanoid`                           | `^3.1.23`       |
-| 13  | `nodemailer`                       | `^6.6.1`        |
-| 14  | `pg`                               | `^8.6.0`        |
-| 15  | `pg-hstore`                        | `^2.3.3`        |
-| 16  | `sequelize`                        | `^6.6.2`        |
-| 17  | `swagger-jsdoc`                    | `6`             |
-| 18  | `swagger-ui-express`               | `^4.1.6`        |
-| 19  | `util`                             | `^0.12.4`       |
-| 20  | `uuid`                             | `^8.3.2`        |
+|  1  | `cors`                             | `^2.8.5`        |
+|  2  | `dotenv`                           | `^16.4.5`       |
+|  3  | `express`                          | `^4.19.2`       |
+|  4  | `express-validator`                | `^7.1.0`        |
+|  5  | `mysql2`                           | `^3.10.1`       |
+|  6  | `sequelize`                        | `^6.37.3`       |
+|  7  | `swagger-jsdoc`                    | `^6.2.8`        |
+|  8  | `swagger-ui-express`               | `^5.0.1`        |
+
 
 ### Documentacion de la Api y Pruebas en Swagger
 
