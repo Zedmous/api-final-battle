@@ -21,18 +21,18 @@ Backend para una aplicacion web sobre ventas de productos de un local o tienda.
 #### Branches
 
 - master -> Production Service`https://example.com/api`
-- master -> Production Local `http://localhost:3800/api`
+- master -> Production Local ```http://localhost:3800/api```
 - develop -> Develop Service `https://example.com/api`
-- develop -> Develop Local `http://localhost:3800/api`
+- develop -> Develop Local ```http://localhost:3800/api```
 
 ### Configurar el entorno de desarrollo
 
 #### Comandos para desplegar funciones.
 
-| °   | Comando         | Descripción                                      | Notas |
-| --- | --------------- | ------------------------------------------------ | ----- |
-| 1   | `npm run dev`   | Compilación de la aplicación para el desarrollo  |
-| 2   | `npm run start` | Ejecutar la aplicación en producción             |
+| °   | Comando             | Descripción                                      | Notas |
+| --- | ------------------- | ------------------------------------------------ | ----- |
+| 1   | ```npm run dev```   | Compilación de la aplicación para el desarrollo  |
+| 2   | ```npm run start``` | Ejecutar la aplicación en producción             |
 
 
 ### Folder Structure
