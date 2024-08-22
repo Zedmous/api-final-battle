@@ -27,13 +27,40 @@ Backend para una aplicacion web sobre ventas de productos de un local o tienda.
 
 ### Configurar el entorno de desarrollo
 
+### Instalación y configuración
+- Pasos de ejecucion:
+
+1. Clonar el repositorio en tu máquina local con el comando 
+```
+git clone https://github.com/Zedmous/test-bk-datanet.git
+```
+2. Apuntar al directorio en la consola al proyecto con el comando 
+```
+cd datanet-bk-test
+```
+2. Instalar las dependencias necesarias con el comando 
+```
+npm install
+```
+3. Configurar las variables de entornos, usa el archivo `.env.example` 
+copia pegalo renombra el nombre dejandole solo `.env` y colocale los valores correspodnientes
+4. Ejecutar el servidor de desarrollo con el comando 
+```
+npm run dev
+```
+4. Ejercutar el servidor de produccion con el comando (previamente debes compilarlo con el comando `npm run comp`)
+```
+npm run start
+```
+
 #### Comandos para desplegar funciones.
 
-| °   | Comando             | Descripción                                      | Notas |
-| --- | ------------------- | ------------------------------------------------ | ----- |
-| 1   | ```npm run dev```   | Compilación de la aplicación para el desarrollo  |
-| 2   | ```npm run start``` | Ejecutar la aplicación en producción             |
-
+| °   | Comando             | Descripción                                                            | Notas |
+| --- | ------------------- | ---------------------------------------------------------------------- | ----- |
+| 1   | `npm run dev`       | Ejecutar compilación de la aplicación y ejecutarla en modo desarrollo  |
+| 2   | `npm run comp`      | Ejecutar la compilacion del proyecto                                   |
+| 3   | `npm run start`     | Ejecutar la aplicación en producción                                   |
+                                  |
 
 ### Folder Structure
 
