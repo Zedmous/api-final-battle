@@ -60,7 +60,6 @@ npm run start
 | 1   | `npm run dev`       | Ejecutar compilación de la aplicación y ejecutarla en modo desarrollo  |
 | 2   | `npm run comp`      | Ejecutar la compilacion del proyecto                                   |
 | 3   | `npm run start`     | Ejecutar la aplicación en producción                                   |
-                                  |
 
 ### Folder Structure
 
