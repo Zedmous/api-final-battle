@@ -12,7 +12,7 @@ export const getAllCustomer = async () => {
 
     if (customers.length == 0) {
       return {
-        message: `No hay clientes encontrados`,
+        message: `No hay registros encontrados`,
         status: 200,
         data: {
           customers,
@@ -20,7 +20,7 @@ export const getAllCustomer = async () => {
       };
     }
     return {
-      message: `Clientes encontrados exitosamente`,
+      message: `Registros encontrados exitosamente`,
       status: 200,
       data: {
         customers,
@@ -42,15 +42,14 @@ export const getOneCustomer = async (id: number) => {
       where: { id },
     }); // Busca el proyecto con título 'Mi Título'
     if (customer === null) {
-      console.log("No encontrado");
       return {
-        message: `Usuario no encontrado`,
+        message: `Registro no encontrado`,
         status: 404,
         data: {},
       };
     } else {
       return {
-        message: `Usuario encontrado`,
+        message: `Registro encontrado`,
         status: 200,
         data: {
           customer,
@@ -77,7 +76,7 @@ export const createCustomer = async (data: CustomerInterface) => {
     });
 
     return {
-      message: `Creacion del usuario exitoso`,
+      message: `¡Registrado exitosamente!`,
       status: 200,
       data: {
         customer,
@@ -112,7 +111,7 @@ export const updateCustomer = async (id: number, dat: CustomerInterface) => {
     );
     const { data } = await getOneCustomer(id);
     return {
-      message: `Actualización del Cliente exitoso`,
+      message: `¡Actualizado exitosamente!`,
       status: 200,
       data: {
         customer: data?.customer,
@@ -143,7 +142,7 @@ export const deleteCustomer = async (id: number, data: CustomerInterface) => {
     );
 
     return {
-      message: `Eliminación del Cliente exitoso`,
+      message: `¡Eliminado exitosamente!`,
       status: 200,
       data: {
         customer,
@@ -166,7 +165,7 @@ export const getByEmailCustomer = async (email: string) => {
     });
     if (!customer) {
       return {
-        message: `Cliente no encontrado`,
+        message: `Registro no encontrado`,
         status: 404,
         data: {
           customer,
@@ -174,7 +173,7 @@ export const getByEmailCustomer = async (email: string) => {
       };
     } else {
       return {
-        message: `Cliente encontrado`,
+        message: `Registro encontrado`,
         status: 200,
         data: {
           customer,

@@ -1,4 +1,4 @@
-import { ProductDB, SaleDB, SaleDetailDB,db } from "../config";
+import { ProductDB, RequestDB, SaleDB, SaleDetailDB,db } from "../config";
 import { SaleInterface } from "../interfaces";
 
 export const getAllSale = async () => {
@@ -72,6 +72,16 @@ export const createSale = async (dat: SaleInterface) => {
         { where: { id: detail.product_id }, transaction } // Usar la transacción
       );
     }
+    ///logica del servicio de finanzas
+    /*const request_journal = await RequestDB.create(
+      {
+        request_type_id: 1,
+        description:"Ventas de Productos",
+        amount:dat.request.amount,
+        sale_details: dat.sale_details, // Aquí pasamos el array de detalles
+      },
+    );*/
+    
     await transaction.commit(); // Confirmar la transacción
     return {
       message: `¡Venta registrada exitosamente!`,

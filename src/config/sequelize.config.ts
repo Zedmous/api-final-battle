@@ -1,8 +1,13 @@
 import { Sequelize } from "sequelize";
 
 import {
+  AccountModel,
+  AccountRecordModel,
   CustomerModel,
+  JournalModel,
   ProductModel,
+  RequestModel,
+  RequestTypeModel,
   RoleModel,
   SaleDetailModel,
   SaleModel,
@@ -16,14 +21,13 @@ const dbName: string | undefined = process.env.DATABASE_NAME
 const dbPassword: string | undefined = process.env.DATABASE_PASSWORD
   ? process.env.DATABASE_PASSWORD
   : "";
-
-const db = new Sequelize(dbName, "root", dbPassword, {
+  const dbUser: string | undefined = process.env.DATABASE_USER
+  ? process.env.DATABASE_USER
+  : "root";
+const db = new Sequelize(dbName, dbUser, dbPassword, {
   dialect: "mysql",
   host: "localhost",
-  dialectOptions: {
-    initDb: true,
-    createDatabaseIfNotExist: true,
-  },
+  logging: false,
 });
 
 //CREAMOS LAS TABLAS DE LA BASE DE DATOS EN ORDEN ALFABETICO
@@ -34,6 +38,11 @@ const SaleDetailDB = db.define("sale_details", SaleDetailModel);
 const SaleDB = db.define("sales", SaleModel);
 const TaxDB = db.define("taxes", TaxModel);
 const UserDB = db.define("users", UserModel);
+const AccountDB = db.define("accounts", AccountModel);
+const AccountRecordDB = db.define("account_records", AccountRecordModel);
+const RequestTypeDB = db.define("request_types", RequestTypeModel);
+const RequestDB = db.define("requests", RequestModel);
+const JournalDB = db.define("journals", JournalModel);
 
 // Relaciones
 RoleDB.hasMany(UserDB, { foreignKey: "role_id" });
@@ -46,6 +55,19 @@ SaleDB.hasMany(SaleDetailDB, { foreignKey: "sale_id" });
 SaleDetailDB.belongsTo(SaleDB, { foreignKey: "sale_id" });
 ProductDB.hasMany(SaleDetailDB, { foreignKey: "product_id" });
 SaleDetailDB.belongsTo(ProductDB, { foreignKey: "product_id" });
+
+RequestTypeDB.hasMany(RequestDB, { foreignKey: "request_type_id" });
+RequestDB.belongsTo(RequestTypeDB, { foreignKey: "request_type_id" });
+
+AccountDB.hasMany(AccountRecordDB, { foreignKey: "account_id" });
+AccountRecordDB.belongsTo(AccountDB, { foreignKey: "account_id" });
+
+RequestDB.hasMany(JournalDB, { foreignKey: "request_id" });
+JournalDB.belongsTo(RequestDB, { foreignKey: "request_id" });
+
+AccountRecordDB.hasOne(JournalDB, { foreignKey: "account_record_id" });
+JournalDB.belongsTo(AccountRecordDB, { foreignKey: "account_record_id" });
+
 
 // Sincroniza los modelos con la base de datos
 const syncModels = async () => {
@@ -66,5 +88,10 @@ export {
   SaleDB,
   TaxDB,
   UserDB,
+  AccountDB,
+  AccountRecordDB,
+  RequestTypeDB,
+  RequestDB,
+  JournalDB,
   db,
 };
