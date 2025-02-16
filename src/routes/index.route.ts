@@ -4,6 +4,8 @@ import roleRoute from "./role.route";
 import saleRoute from "./sale.route";
 import taxRoute from "./tax.route";
 import userRoute from "./user.route";
+import purchaseRoute from "./purchase.route";
+import journalRoute from "./journal.route";
 
 
 export {
@@ -13,6 +15,8 @@ export {
     saleRoute,
     taxRoute,
     userRoute,
+    purchaseRoute,
+    journalRoute
 }
     
 

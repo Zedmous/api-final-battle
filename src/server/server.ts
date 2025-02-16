@@ -2,7 +2,9 @@ import express from "express";
 import cors from "cors";
 import {
   customerRoute,
+  journalRoute,
   productRoute,
+  purchaseRoute,
   roleRoute,
   saleRoute,
   taxRoute,
@@ -29,6 +31,7 @@ export class Server {
       sales: this.pre + "/sales",
       taxes: this.pre + "/taxes",
       users: this.pre + "/users",
+      journals: this.pre + "/journals",
     };
 
     this.connectDB();
@@ -48,8 +51,10 @@ export class Server {
     this.app.use(this.paths.products, productRoute);
     this.app.use(this.paths.roles, roleRoute);
     this.app.use(this.paths.sales, saleRoute);
+    this.app.use(this.paths.purchases, purchaseRoute);
     this.app.use(this.paths.taxes, taxRoute);
     this.app.use(this.paths.users, userRoute);
+    this.app.use(this.paths.journals, journalRoute);
   }
   async connectDB() {
     await db
@@ -70,13 +75,5 @@ export class Server {
   swaggerSetup() {
     const swaggerDocs = swaggerJsDoc(swaggerOptions);
     this.app.use("/swagger", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
-    /*
-    app.get('/swagger.json', function (req, res) {
-      res.setHeader('Content-Type', 'application/json');
-      res.send(swaggerDocs);
-    });
-    app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
-    
-    app.use('/api/v2', mainRoute);*/
   }
 }
