@@ -6,6 +6,7 @@
   "scripts": {
     "start": "node dist/app.js",
     "dev": "tsc && node dist/app.js",
+    "seeds": "tsc && node dist/data/insert-seeders",
     "comp": "tsc"
   },
   "author": "",

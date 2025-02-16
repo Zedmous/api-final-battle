@@ -15,9 +15,6 @@ const AccountModel = {
     type: DataTypes.ENUM('activo', 'pasivo', 'capital', 'ingreso', 'egreso'),
     allowNull: false
   },
-  amount: {
-    type: DataTypes.DOUBLE,
-  },
   status: {
     type: DataTypes.BOOLEAN,
     defaultValue: true,

@@ -9,11 +9,13 @@ const AccountRecordModel = {
   name: {
     type: DataTypes.STRING(100),
     allowNull: false,
-    unique: true,
   },
   type: {
     type: DataTypes.ENUM('debe', 'haber'),
     allowNull: false
+  },
+  amount: {
+    type: DataTypes.DOUBLE,
   },
   account_id: {
     type: DataTypes.INTEGER,

@@ -1,4 +1,5 @@
 import { AccountInterface } from "./account.interface";
+import { JournalInterface } from "./journal.interface";
 
 export interface AccountRecordInterface{
     id?:number;
@@ -11,4 +12,5 @@ export interface AccountRecordInterface{
     deletedAt:Date;
     status?:boolean;
     account?:AccountInterface;
+    journal?:JournalInterface;
 }
