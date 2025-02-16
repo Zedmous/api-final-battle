@@ -1,5 +1,18 @@
-import { ProductDB, RequestDB, SaleDB, SaleDetailDB,db } from "../config";
-import { SaleInterface } from "../interfaces";
+import {
+  AccountRecordDB,
+  JournalDB,
+  ProductDB,
+  RequestDB,
+  SaleDB,
+  SaleDetailDB,
+  db,
+} from "../config";
+import {
+  AccountRecordInterface,
+  JournalInterface,
+  RequestInterface,
+  SaleInterface,
+} from "../interfaces";
 
 export const getAllSale = async () => {
   try {
@@ -64,30 +77,60 @@ export const createSale = async (dat: SaleInterface) => {
         transaction, // Usar la transacción
       }
     );
-    let details:any=dat.sale_details;
-    // Actualizar la cantidad en la tabla products
+    let details: any = dat.sale_details;
+    // Actualizar la cantidad en la tabla products y calcular el monto total
+    let amount: number = 0.0;
     for (const detail of details) {
+      amount += detail.quantity * detail.price;
       await ProductDB.update(
         { quantity: db.literal(`quantity - ${detail.quantity}`) },
         { where: { id: detail.product_id }, transaction } // Usar la transacción
       );
     }
-    ///logica del servicio de finanzas
-    /*const request_journal = await RequestDB.create(
+
+    //lógica de finanzas
+    const request = await RequestDB.create(
       {
-        request_type_id: 1,
-        description:"Ventas de Productos",
-        amount:dat.request.amount,
-        sale_details: dat.sale_details, // Aquí pasamos el array de detalles
+        request_type_id: 2, //asi lo definimos en el seed para la venta al contado
+        description: "Registro de Venta al contado",
+        amount,
+        status: "aprobada",
+        journals: [
+          {
+            account_records: {
+              account_id: 1, //es banco
+              name: "Banco Principal",
+              type: "debe",
+              amount,
+            },
+          },
+          {
+            account_records: {
+              account_id: 4, //es ventas
+              name: "Registro de Venta al contado",
+              type: "haber",
+              amount,
+            },
+          },
+        ],
       },
-    );*/
-    
+      {
+        include: [
+          {
+            model: JournalDB,
+            include: [AccountRecordDB],
+          },
+        ],
+        transaction,
+      }
+    );
     await transaction.commit(); // Confirmar la transacción
     return {
       message: `¡Venta registrada exitosamente!`,
       status: 200,
       data: {
         sale,
+        request
       },
     };
   } catch (error) {

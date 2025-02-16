@@ -3,12 +3,13 @@ import "dotenv/config";
 import {
   AccountDB,
   AccountRecordDB,
+  CustomerDB,
   JournalDB,
   ProductDB,
   RequestDB,
   RequestTypeDB,
   RoleDB,
-  SaleDB,
+  TaxDB,
   UserDB,
   db,
 } from "../config";
@@ -21,6 +22,9 @@ import {
   requestTypesSeeds,
   rolesSeeds,
   usersSeeds,
+  productsSeeds,
+  customersSeeds,
+  taxesSeeds,
 } from "../data/seeders";
 
 async function insertSeeders() {
@@ -35,7 +39,9 @@ async function insertSeeders() {
   try {
     console.log("Insertando seeds de nivel 1...");
     await RoleDB.bulkCreate(rolesSeeds, { ignoreDuplicates: true, validate: true });
-    //await ProductDB.bulkCreate(productSeeds, { ignoreDuplicates: true, validate: true });
+    await ProductDB.bulkCreate(productsSeeds, { ignoreDuplicates: true, validate: true });
+    await CustomerDB.bulkCreate(customersSeeds, { ignoreDuplicates: true, validate: true });
+    await TaxDB.bulkCreate(taxesSeeds, { ignoreDuplicates: true, validate: true });
     await RequestTypeDB.bulkCreate(requestTypesSeeds, { ignoreDuplicates: true, validate: true });
     await AccountDB.bulkCreate(accountsSeeds, { ignoreDuplicates: true, validate: true });
     console.log("Insertando seeds de nivel 2...");
