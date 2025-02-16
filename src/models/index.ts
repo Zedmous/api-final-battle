@@ -10,3 +10,5 @@ export * from './account.model';
 export * from './journal.model';
 export * from './request.model';
 export * from './request_type.model';
+export * from './purchase.model';
+export * from './purchase_detail.model';

@@ -5,4 +5,5 @@ export * from './role.validators'
 export * from './sale.validators'
 export * from './tax.validators'
 export * from './user.validators'
+export * from './purchase.validators'
 

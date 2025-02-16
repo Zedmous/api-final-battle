@@ -1,4 +1,5 @@
 import {
+  AccountDB,
   AccountRecordDB,
   JournalDB,
   ProductDB,
@@ -7,6 +8,7 @@ import {
   SaleDetailDB,
   db,
 } from "../config";
+import { calculateBalance } from "../helpers";
 import {
   AccountRecordInterface,
   JournalInterface,
@@ -89,6 +91,7 @@ export const createSale = async (dat: SaleInterface) => {
     }
 
     //lógica de finanzas
+    /* No borrar, pro alguna razon dejod e funcionar, deberia ejecutarse
     const request = await RequestDB.create(
       {
         request_type_id: 2, //asi lo definimos en el seed para la venta al contado
@@ -124,13 +127,76 @@ export const createSale = async (dat: SaleInterface) => {
         transaction,
       }
     );
+    */
+    const request_db: any = await RequestDB.create(
+      {
+        request_type_id: 2,
+        description: "Registro de Venta al contado",
+        amount,
+        status: "aprobada",
+      },
+      { transaction }
+    );
+    let request: RequestInterface = { ...request_db.dataValues };
+    request.journals=[];
+    //definimos los datos del libro por defecto, puede ser variable si envias la data del cliente y las cuentas son existentes
+    let accounts_records: Partial<AccountRecordInterface>[] = [
+      {
+        account_id: 1, //es banco
+        name: "Banco Principal",
+        type: "debe",
+        amount,
+      },
+      {
+        account_id: 4, //es venta
+        name: "Registro de Venta al contado",
+        type: "haber",
+        amount,
+      },
+    ];
+    for (let i = 0; i < accounts_records.length; i++) {
+      //registramos el acoount record del diario
+      const account_record_db: any = await AccountRecordDB.create(
+        {
+          ...accounts_records[i],
+        },
+        { transaction: transaction }
+      );
+      let account_record: AccountRecordInterface = account_record_db.dataValues;
+      //procedemos actualizar el balance de la cuenta
+      const account_db:any=await AccountDB.findOne({ where: { id:accounts_records[i].account_id } })
+      const balance =calculateBalance(account_db.dataValues.type_account,amount,accounts_records[i].type!,account_db.dataValues.balance);
+      await AccountDB.update({
+        balance
+      },
+      {
+        where: {
+          id:accounts_records[i].account_id
+        },
+        returning: true,
+        transaction: transaction
+      })
+      //registramos el reglon del diario correspondiente a la cuenta
+      const journal_db: any = await JournalDB.create(
+        {
+          request_id: request.id,
+          account_record_id: account_record.id,
+          status: true,
+        },
+        { transaction: transaction }
+      );
+      
+      let journal: JournalInterface = { ...journal_db.dataValues };
+      journal.account_record = account_record;
+      request.journals.push(journal);
+    }
     await transaction.commit(); // Confirmar la transacción
     return {
       message: `¡Venta registrada exitosamente!`,
       status: 200,
       data: {
         sale,
-        request
+        request,
       },
     };
   } catch (error) {

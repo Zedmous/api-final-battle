@@ -6,6 +6,8 @@ import {
   CustomerModel,
   JournalModel,
   ProductModel,
+  PurchaseDetailModel,
+  PurchaseModel,
   RequestModel,
   RequestTypeModel,
   RoleModel,
@@ -36,6 +38,8 @@ const ProductDB = db.define("products", ProductModel);
 const RoleDB = db.define("roles", RoleModel);
 const SaleDetailDB = db.define("sale_details", SaleDetailModel);
 const SaleDB = db.define("sales", SaleModel);
+const PurchaseDetailDB = db.define("purchase_details", PurchaseDetailModel);
+const PurchaseDB = db.define("purchases", PurchaseModel);
 const TaxDB = db.define("taxes", TaxModel);
 const UserDB = db.define("users", UserModel);
 const AccountDB = db.define("accounts", AccountModel);
@@ -55,6 +59,11 @@ SaleDB.hasMany(SaleDetailDB, { foreignKey: "sale_id" });
 SaleDetailDB.belongsTo(SaleDB, { foreignKey: "sale_id" });
 ProductDB.hasMany(SaleDetailDB, { foreignKey: "product_id" });
 SaleDetailDB.belongsTo(ProductDB, { foreignKey: "product_id" });
+
+PurchaseDB.hasMany(PurchaseDetailDB, { foreignKey: "purchase_id" });
+PurchaseDetailDB.belongsTo(PurchaseDB, { foreignKey: "purchase_id" });
+ProductDB.hasMany(PurchaseDetailDB, { foreignKey: "product_id" });
+PurchaseDetailDB.belongsTo(ProductDB, { foreignKey: "product_id" });
 
 RequestTypeDB.hasMany(RequestDB, { foreignKey: "request_type_id" });
 RequestDB.belongsTo(RequestTypeDB, { foreignKey: "request_type_id" });
@@ -86,6 +95,8 @@ export {
   RoleDB,
   SaleDetailDB,
   SaleDB,
+  PurchaseDetailDB,
+  PurchaseDB,
   TaxDB,
   UserDB,
   AccountDB,

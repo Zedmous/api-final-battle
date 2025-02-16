@@ -23,6 +23,7 @@ export class Server {
     this.pre = "/api";
     this.paths = {
       customers: this.pre + "/customers",
+      purchases: this.pre + "/purchases",
       products: this.pre + "/products",
       roles: this.pre + "/roles",
       sales: this.pre + "/sales",

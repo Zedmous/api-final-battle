@@ -11,6 +11,11 @@ const AccountModel = {
     allowNull: false,
     unique: true,
   },
+  balance: {//si esta negativo es porque esta disminuyendo a su naturaleza
+    type: DataTypes.DOUBLE,
+    allowNull: false,
+    defaultValue: 0.0,
+  },
   type_account: {
     type: DataTypes.ENUM('activo', 'pasivo', 'capital', 'ingreso', 'egreso'),
     allowNull: false

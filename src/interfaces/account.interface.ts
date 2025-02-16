@@ -4,6 +4,7 @@ export interface AccountInterface{
     id?:number;
     name:string;
     type_account:string;
+    balance:number;
     createdAt:Date;
     updatedAt:Date;
     deletedAt:Date;

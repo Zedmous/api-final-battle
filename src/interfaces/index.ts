@@ -10,6 +10,8 @@ export * from './account_record.interface'
 export * from './request_type.interface'
 export * from './request.interface'
 export * from './journal.interface'
+export * from './purchase.interface'
+export * from './purchase_detail.interface'
 
 
 
